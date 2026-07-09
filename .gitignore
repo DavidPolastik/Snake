@@ -14,8 +14,9 @@
 *.user
 *.suo
 
-# Lokální ověřovací výstupy
+# Lokální ověřovací a spustitelné výstupy
 _verify/
+_run/
 
 # Systémové soubory
 .DS_Store
