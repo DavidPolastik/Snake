@@ -1,0 +1,19 @@
+# Sestavení
+/build/
+build/
+cmake-build-*/
+
+# CMake artefakty
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+Testing/
+*.o
+*.obj
+*.exe
+
+# IDE
+.vs/
+.vscode/
+.idea/
