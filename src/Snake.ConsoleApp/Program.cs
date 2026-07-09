@@ -74,7 +74,7 @@ internal static class Program
         {
             if (!Console.IsOutputRedirected && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                Console.WindowHeight = board.Height + 1;
+                Console.WindowHeight = board.Height + 2;  // +řádek pro skóre
                 Console.WindowWidth = board.Width + 1;
             }
         }

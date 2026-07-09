@@ -92,7 +92,8 @@ public sealed class ConsoleRenderer : IRenderer
     {
         Console.ResetColor();
         SetCursor(0, game.Board.Height);
-        Console.Write($"Skore: {game.Score}   (sipky = pohyb, Esc = konec)");
+        // Drž se šířky plochy, ať se řádek nezalomí a neodroluje rámeček.
+        Console.Write($"Skore: {game.Score}   (sipky, Esc)");
     }
 
     private static void DrawCell(Point cell, char glyph)
