@@ -1,19 +1,26 @@
-# Sestavení
-/build/
-build/
-cmake-build-*/
+# .NET / C# – ignorované soubory
 
-# CMake artefakty
-CMakeCache.txt
-CMakeFiles/
-cmake_install.cmake
-CTestTestfile.cmake
-Testing/
-*.o
-*.obj
+# Výsledky sestavení
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+*.dll
 *.exe
+*.pdb
 
-# IDE
+# Uživatelská nastavení VS
 .vs/
+*.user
+*.suo
+
+# Lokální ověřovací výstupy
+_verify/
+
+# Systémové soubory
+.DS_Store
+Thumbs.db
+
+# Editor / nástroje
 .vscode/
 .idea/
