@@ -20,6 +20,7 @@ internal static class Program
 
         runner.Run(nameof(MovesInChosenDirection), () => MovesInChosenDirection(runner));
         runner.Run(nameof(OppositeDirectionIsIgnored), () => OppositeDirectionIsIgnored(runner));
+        runner.Run(nameof(MultipleTurnsPerTickCannotReverse), () => MultipleTurnsPerTickCannotReverse(runner));
         runner.Run(nameof(EatingFoodGrowsAndScores), () => EatingFoodGrowsAndScores(runner));
         runner.Run(nameof(HittingWallEndsGame), () => HittingWallEndsGame(runner));
         runner.Run(nameof(HittingSelfEndsGame), () => HittingSelfEndsGame(runner));
@@ -50,6 +51,22 @@ internal static class Program
         game.SetDirection(Direction.Left);  // opak doprava -> ignorovat
         game.Tick();
         r.Check(game.Snake.Head == new Point(Start.X + 1, Start.Y), "opacny smer ignorovan");
+    }
+
+    private static void MultipleTurnsPerTickCannotReverse(TestRunner r)
+    {
+        // Had délky 2 mířící doprava; hlava (11,10), krk (10,10).
+        var game = new SnakeGame(new Board(W, H), new ScriptedFoodPlacer(new Point(1, 1)), startLength: 2);
+        game.Tick();  // dorostl na délku 2, míří doprava
+        r.Check(game.Snake.Length == 2, "delka 2");
+
+        // Během jednoho tiku: nahoru a hned doleva. Otočka o 180° (doleva na krk)
+        // musí být odmítnuta, jinak by had vjel sám do sebe.
+        game.SetDirection(Direction.Up);
+        game.SetDirection(Direction.Left);
+        game.Tick();
+
+        r.Check(game.IsRunning, "vice otacek za tik neobrati hada do sebe");
     }
 
     private static void EatingFoodGrowsAndScores(TestRunner r)

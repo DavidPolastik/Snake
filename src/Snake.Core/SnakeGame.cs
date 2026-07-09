@@ -17,6 +17,7 @@ public sealed class SnakeGame
     private readonly Board _board;
     private readonly IFoodPlacer _foodPlacer;
     private Direction _direction = Direction.Right;
+    private Direction _lastMovedDirection = Direction.Right;
     private int _pendingGrowth;
 
     public SnakeGame(Board board, IFoodPlacer foodPlacer, int startLength = DefaultStartLength)
@@ -40,10 +41,14 @@ public sealed class SnakeGame
     public Board Board => _board;
     public bool IsRunning => Status == GameStatus.Running;
 
-    /// <summary>Změní směr; požadavek na otočení přímo do sebe je ignorován.</summary>
+    /// <summary>
+    /// Změní směr; otočení přímo do sebe je ignorováno. Porovnává se proti
+    /// naposledy odehranému směru, aby ani víc změn během jednoho tiku
+    /// (např. ↑ pak ←) nedokázalo hada obrátit o 180° do vlastního krku.
+    /// </summary>
     public void SetDirection(Direction direction)
     {
-        if (!direction.IsOppositeTo(_direction))
+        if (!direction.IsOppositeTo(_lastMovedDirection))
         {
             _direction = direction;
         }
@@ -73,6 +78,7 @@ public sealed class SnakeGame
         }
 
         Snake.MoveTo(newHead, grow);
+        _lastMovedDirection = _direction;
 
         if (eating)
         {
