@@ -18,6 +18,9 @@
 _verify/
 _run/
 
+# Zadání úlohy – jen lokálně, nepatří do odevzdávaného repa
+zadani.md
+
 # Systémové soubory
 .DS_Store
 Thumbs.db
